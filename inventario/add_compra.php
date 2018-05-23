@@ -80,8 +80,10 @@
 			<th> Fecha</th>
            </thead>
              <tbody  id="camion_info"> </tbody>
-         </table>		
+         </table>	
+		</form>
 		
+		<form method="post" action="add_compra.php">
          <table id="lista_productos" class="table table-bordered">
            <thead>
             <th> Proovedor </th>            

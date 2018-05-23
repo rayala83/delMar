@@ -45,6 +45,29 @@ function suggetion() {
  }
   $('#sug-form3').submit(function(e) {
       var formData = {
+          'p_name1' : $('input[name=title]').val()
+      };
+        // process the form
+        $.ajax({
+            type        : 'POST',
+            url         : 'ajax3.php',
+            data        : formData,
+            dataType    : 'json',
+            encode      : true
+        })
+            .done(function(data) {
+                //console.log(data);
+                $('#camion_info').html(data).show();
+                total();
+                $('.datePicker').datepicker('update', new Date());
+
+            }).fail(function() {
+                $('#camion_info').html(data).show();
+            });
+      e.preventDefault();
+  });
+    $('#sug-form3').submit(function(e) {
+      var formData = {
           'p_name' : $('input[name=title]').val()
       };
         // process the form

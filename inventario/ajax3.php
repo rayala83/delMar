@@ -1,6 +1,10 @@
 <?php
   require_once('includes/load.php');
   if (!$session->isUserLoggedIn(true)) { redirect('index.php', false);}
+  $all_choferes = find_all('chofer');
+  $all_patentes = find_all('camion');
+  $all_proveedores = find_all('proveedores');
+  
 ?>
 
 <?php
@@ -28,9 +32,9 @@
  ?>
  <?php
  // find all product
-  if(isset($_POST['p_name']) && strlen($_POST['p_name']))
+  if(isset($_POST['p_name1']) && strlen($_POST['p_name1']))
   {
-    $product_title = remove_junk($db->escape($_POST['p_name']));
+    $product_title = remove_junk($db->escape($_POST['p_name1']));
     if($results = find_all_product_info_by_title($product_title)){
         foreach ($results as $result) {
 
@@ -38,11 +42,20 @@
 		  $html .= "<tr>";
 
           $html .= "<td id=\"chofer\">";
-          $html .=   "<select class=\"form-control\" name=\"proveedor\">  <option value=\"\">Seleccione Chofer<option value=\"1\">Chofer 1<option value=\"2\">Chofer 2<option value=\"3\">Chofer 3"; 
-          $html  .= "</td>";
+          $html .=   "<select class=\"form-control\" name=\"chofer\"> 
+								<option value=\"\">Seleccione Chofer";
+								foreach ($all_choferes as $ch):
+								$html .= "<option value=\"".$ch['id']."\">".$ch['nombre']."";
+								endforeach; 			
+          $html  .= "</td>";				
+		  
 		  
           $html .= "<td id=\"patente\">";
-          $html .=   "<select class=\"form-control\" name=\"proveedor\">  <option value=\"\">Seleccione Patente<option value=\"1\">ZG-2215<option value=\"2\">DB-HY12<option value=\"3\">WS-2345"; 
+          $html .=   "<select class=\"form-control\" name=\"patente\">  
+								<option value=\"\">Seleccione Patente";
+								foreach ($all_patentes as $pat):
+								$html .= "<option value=\"".$pat['patente']."\">".$pat['patente']."";
+								endforeach; 
           $html  .= "</td>";
 		  
 		  $html .= "<td id=\"s_name\">".$result['name']."</td>";
@@ -52,11 +65,34 @@
           $html  .= "</td>";
 		  
           $html  .= "</tr>";
+		}	  
+    } else {
+        $html ='<tr><td>El producto no se encuentra registrado en la base de datos</td></tr>';
+    }
+
+    echo json_encode($html);
+  }
+ ?>		  
+		  
+		  
+ <?php
+ // find all product
+  if(isset($_POST['p_name']) && strlen($_POST['p_name']))
+  {
+    $product_title = remove_junk($db->escape($_POST['p_name']));
+    if($results = find_all_product_info_by_title($product_title)){
+        foreach ($results as $result) {	
+
+		  
 		
           $html .= "<tr>";
 
           $html .= "<td id=\"proveedor\">";
-          $html .=   "<select class=\"form-control\" name=\"proveedor\">  <option value=\"\">Seleccione Proveedor<option value=\"1\">Maluco<option value=\"2\">Enrique<option value=\"3\">Claudia"; 
+          $html .=   "<select class=\"form-control\" name=\"proveedor\">  
+								<option value=\"\">Seleccione Proveedor";
+								foreach ($all_proveedores as $prov):
+								$html .= "<option value=\"".$prov['id']."\">".$prov['alias']."";
+								endforeach; 
           $html  .= "</td>";
 		  
           $html .= "<td id=\"s_qty\">";
@@ -64,7 +100,11 @@
           $html  .= "</td>";
 		  
 		  $html .= "<td id=\"calidad\">";
-          $html .=   "<select class=\"form-control\" name=\"calidad\">  <option value=\"\">Seleccione Calidad<option value=\"B\">Bueno<option value=\"R\">Regular<option value=\"M\">Malo"; 
+          $html .=   "<select class=\"form-control\" name=\"calidad\">  
+								<option value=\"\">Seleccione Calidad
+								<option value=\"B\">Bueno
+								<option value=\"R\">Regular
+								<option value=\"M\">Malo"; 
           $html  .= "</td>";
 		  
 		  $html .= "<td id=\"guia\">";

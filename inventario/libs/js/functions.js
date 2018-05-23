@@ -83,7 +83,7 @@ function suggetion() {
          e.preventDefault();
      });
 	 
-
+}
   $('#sug-form').submit(function(e) {
       var formData = {
           'p_name' : $('input[name=title]').val()
