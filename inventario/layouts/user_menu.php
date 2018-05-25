@@ -13,6 +13,8 @@
     <ul class="nav submenu">
       <li><a href="proveedores.php">Administrar Proveedores</a> </li>
       <li><a href="add_proveedores.php">Agregar Proveedores</a> </li>
+	  <li><a href="add_camion.php">Agregar camiones</a> </li>
+	  <li><a href="add_chofer.php">Agregar chofer</a> </li>
    </ul>
   </li>
   <li>
@@ -21,7 +23,7 @@
        <span>Entrada Producto</span>
       </a>
       <ul class="nav submenu">
-		 <li><a href="#">Administrar Entradas</a> </li>
+		 <li><a href="gestion_entradas.php">Administrar Entradas</a> </li>
          <li><a href="add_compra.php">Agregar Entrada</a> </li>
      </ul>
   </li>

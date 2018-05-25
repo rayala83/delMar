@@ -131,6 +131,29 @@ function suggetion() {
             });
       e.preventDefault();
   });
+    $('#sug-form2').submit(function(e) {
+      var formData = {
+          'p_name2' : $('input[name=title]').val()
+      };
+        // process the form
+        $.ajax({
+            type        : 'POST',
+            url         : 'ajax2.php',
+            data        : formData,
+            dataType    : 'json',
+            encode      : true
+        })
+            .done(function(data) {
+                //console.log(data);
+                $('#product_info2').html(data).show();
+                total();
+                $('.datePicker').datepicker('update', new Date());
+
+            }).fail(function() {
+                $('#product_info2').html(data).show();
+            });
+      e.preventDefault();
+  });
   
   function total(){
     $('#product_info input').change(function(e)  {
@@ -140,16 +163,7 @@ function suggetion() {
                 $('input[name=total]').val(total.toFixed(2));
     });
   }
-  function productos(){
-	var tbody = $('#product_info');
-	var fila_contenido = tbody.find('tr').first().html();
-	//Agregar fila nueva.
-	$('#lista_productos .btn-primary').click(function(){
-		var fila_nueva = $('<tr></tr>');
-		fila_nueva.append(fila_contenido);
-		tbody.append(fila_nueva);
-	});
-}
+
 
   $(document).ready(function() {
 
@@ -163,7 +177,6 @@ function suggetion() {
     suggetion();
     // Callculate total ammont
     total();
-	productos();
 
     $('.datepicker')
         .datepicker({

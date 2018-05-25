@@ -70,29 +70,40 @@
       </div>
       <div class="panel-body">
         <form method="post" action="add_sale_contenedor.php">
-         <table class="table table-bordered">
-           <thead>
-			<tr>
-				<th> Producto </th>
-				<th> Cantidad </th>
-				<th> Contenedor </th>
-				<th> Lote </th>
-			</tr>
-		   </thead>
-			 <tbody  id="product_info"> </tbody>
-		 </table>	
-		 
-		 <table class="table table-bordered">		 
-		   <thead>
-			<tr>	
-				<th> Calidad </th>
-				<th> Glaseado </th>
-				<th> Fecha</th>
-				<th> Acciones</th>
-			</tr>	
-           </thead> 
-			 <tbody  id="product_info"> </tbody>
-         </table>
+			<div class="form-group">
+				<div class="row">
+					<div class="col-md-3">
+						<div> Producto </div>
+					</div>
+					<div class="col-md-3">
+						<div> Cantidad </div>
+					</div>
+					<div class="col-md-3">
+						<div> Contenedor </div>
+					</div>	
+					<div class="col-md-3">
+						<div> Lote </div>
+					</div>
+				</div>
+				<div id="product_info"> </div>
+			</div>
+			<div class="form-group">
+				<div class="row">
+					<div class="col-md-3">
+						<div> Calidad </div>
+					</div>
+					<div class="col-md-3">
+						<div> Glaseado </div>
+					</div>
+					<div class="col-md-3">
+						<div> Fecha </div>
+					</div>	
+					<div class="col-md-3">
+						<div> Acciones </div>
+					</div>
+				</div>	
+				<div id="product_info2"> </div>
+			</div>			
        </form>
       </div>
     </div>

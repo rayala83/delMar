@@ -40,6 +40,8 @@
 
 		
 		  $html .= "<tr>";
+		  
+		  
 
           $html .= "<td id=\"chofer\">";
           $html .=   "<select class=\"form-control\" name=\"chofer\"> 
@@ -54,7 +56,7 @@
           $html .=   "<select class=\"form-control\" name=\"patente\">  
 								<option value=\"\">Seleccione Patente";
 								foreach ($all_patentes as $pat):
-								$html .= "<option value=\"".$pat['patente']."\">".$pat['patente']."";
+								$html .= "<option value=\"".$pat['id']."\">".$pat['patente']."";
 								endforeach; 
           $html  .= "</td>";
 		  
@@ -83,7 +85,7 @@
     if($results = find_all_product_info_by_title($product_title)){
         foreach ($results as $result) {	
 
-		  
+		  $html .= "<input type=\"hidden\" name=\"s_id\" value=\"{$result['id']}\">";
 		
           $html .= "<tr>";
 
@@ -108,12 +110,12 @@
           $html  .= "</td>";
 		  
 		  $html .= "<td id=\"guia\">";
-          $html .= "<input type=\"text\" class=\"form-control\" name=\"quantity\" value=\"0\">";
+          $html .= "<input type=\"text\" class=\"form-control\" name=\"guia\" value=\"0\">";
           $html  .= "</td>";
 		  
 		  
           $html  .= "<td>";
-          $html  .= "<button type=\"button\" class=\"btn btn-success btn-primary\">Agregar</button>";
+          $html  .= "<button type=\"submit\" name=\"add_compra\" class=\"btn btn-primary\">Agregar</button>";
           $html  .= "</td>";
 		  
           $html  .= "</tr>";

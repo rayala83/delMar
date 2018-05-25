@@ -319,6 +319,20 @@ function tableExists($table){
    $sql .= " ORDER BY s.date DESC";
    return find_by_sql($sql);
  }
+  /*--------------------------------------------------------------*/
+ /* Function for find todas las entradas
+ /*--------------------------------------------------------------*/
+ function find_all_entradas(){
+   global $db;
+   $sql  = "SELECT p.name,e.fecha,e.cantidad,e.calidad,c.nombre,l.patente";
+   $sql .= " FROM entradas e ";
+   $sql .= " INNER JOIN chofer c ON c.id = e.id_chofer ";
+   $sql .= " INNER JOIN camion l ON l.id = e.id_camion ";
+   $sql .= " INNER JOIN products p ON p.id = e.product_id ";
+   $sql .= " ORDER BY e.fecha DESC";
+   return find_by_sql($sql);
+ } 
+ 
  /*--------------------------------------------------------------*/
  /* Function for Display Recent sale
  /*--------------------------------------------------------------*/
