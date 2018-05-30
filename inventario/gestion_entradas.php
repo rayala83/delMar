@@ -32,7 +32,6 @@ $entradas = find_all_entradas();
                 <th class="text-center" style="width: 50px;">#</th>
                 <th> Nombre del producto </th>
                 <th class="text-center" style="width: 15%;"> Cantidad</th>
-                <th class="text-center" style="width: 15%;"> Calidad </th>
                 <th class="text-center" style="width: 15%;"> Chofer </th>
 				<th class="text-center" style="width: 15%;"> Patente </th>
 				<th class="text-center" style="width: 15%;"> Fecha </th>
@@ -45,13 +44,12 @@ $entradas = find_all_entradas();
                <td class="text-center"><?php echo count_id();?></td>
                <td><?php echo remove_junk($entrada['name']); ?></td>
                <td class="text-center"><?php echo (int)$entrada['cantidad']; ?></td>
-               <td class="text-center"><?php echo remove_junk($entrada['calidad']); ?></td>
 			   <td class="text-center"><?php echo remove_junk($entrada['nombre']); ?></td>
                <td class="text-center"><?php echo remove_junk($entrada['patente']); ?></td>
                <td class="text-center"><?php echo $entrada['fecha']; ?></td>
                <td class="text-center">
                   <div class="btn-group">
-                     <a href="edit_sale.php?id=<?php echo (int)$entrada['id'];?>" class="btn btn-warning btn-xs"  title="Edit" data-toggle="tooltip">
+                     <a href="detalle_camion.php?id=<?php echo (int)$entrada['id'];?>" class="btn btn-warning btn-xs"  title="detalle" data-toggle="tooltip">
                        <span class="glyphicon glyphicon-edit"></span>
                      </a>
                      <a href="delete_sale.php?id=<?php echo (int)$entrada['id'];?>" class="btn btn-danger btn-xs"  title="Delete" data-toggle="tooltip">

@@ -8,37 +8,60 @@
 <?php
 
   if(isset($_POST['add_compra'])){
-    $req_fields = array('s_id','chofer','patente','date','proveedor','quantity', 'calidad', 'guia');
-    validate_fields($req_fields);
+	  
         if(empty($errors)){
           $p_id      = $db->escape((int)$_POST['s_id']);
-		  $proov	 = $db->escape($_POST['proveedor']);
 		  $chofer	 = $db->escape($_POST['chofer']);
 		  $patente	 = $db->escape($_POST['patente']);
-          $s_qty     = $db->escape((int)$_POST['quantity']);
-		  $calidad	 = $db->escape($_POST['calidad']);
-          $s_guia   = $db->escape($_POST['guia']);
-          $date      = $db->escape($_POST['date']);
+		  $date      = $db->escape($_POST['date']);
           $s_date    = make_date();
+		  $array_proov	 = ($_POST['proveedor']);
+		  $array_s_qty     = ($_POST['quantity']);
+		  $array_calidad	 = ($_POST['calidad']);
+          $array_s_guia   = ($_POST['guia']);
 
-          $sql  = "INSERT INTO entradas (";
-          $sql .= " product_id, proveedor_id, id_chofer, id_camion, cantidad, calidad, guia,  fecha";
-          $sql .= ") VALUES (";
-          $sql .= "'{$p_id}','{$proov}', '{$chofer}','{$patente}','{$s_qty}','{$calidad}','{$s_guia}','{$s_date}'";
-          $sql .= ")";
+		  
+		  while(true){
+				
+			  $item_proov = current($array_proov);
+			  $item_s_qty = current($array_s_qty);
+			  $item_calidad = current($array_calidad);
+			  $item_s_guia = current($array_s_guia);
+			  
+			  $proov=(( $item_proov  !== false) ? $item_proov  : ", &nbsp;");
+			  $s_qty=(( $item_s_qty !== false) ? $item_s_qty : ", &nbsp;");
+			  $calidad=(( $item_calidad !== false) ? $item_calidad : ", &nbsp;");
+			  $s_guia=(( $item_s_guia !== false) ? $item_s_guia : ", &nbsp;");
+			  
+			  $valores='('.$p_id.',"'.$proov.'","'.$chofer.'","'.$patente.'","'.$s_qty.'","'.$calidad.'","'.$s_guia.'","'.$s_date.'"),';
+			  $valoresQ= substr($valores, 0, -1);
+			  
+			  $sql = "INSERT INTO entradas(product_id, proveedor_id, id_chofer, id_camion, 
+				    	cantidad, calidad, guia,  fecha) VALUES $valoresQ";
+						
+			  $sqlRes=$db->query($sql) or mysql_error();			
 
-                if($db->query($sql)){
-                  update_product_qty_edit($s_qty,$p_id);
-                  $session->msg('s',"Compra Agregada ");
-                  redirect('add_compra.php', false);
-                } else {
-                  $session->msg('d','Lo siento, registro falló.');
-                  redirect('add_compra.php', false);
-                }
-        } else {
-           $session->msg("d", $errors);
-           redirect('add_compra.php',false);
-        }
+			  /*if($db->query($sql)){
+										
+				  update_product_qty_edit($s_qty,$p_id);
+				  $session->msg('s',"Compra Agregada ");
+				  redirect('add_compra.php', false);
+				} else {
+				  $session->msg('d','Lo siento, registro falló.');
+				  redirect('add_compra.php', false);
+				}*/
+				  	
+										  
+			  $item_proov = next( $array_proov );
+			  $item_s_qty = next( $array_s_qty );
+			  $item_calidad = next( $array_calidad );
+			  $item_s_guia = next( $array_s_guia );
+			  if($item_proov === false && $item_s_qty === false && $item_calidad === false && $item_s_guia === false) break;
+		  }		
+		} else {
+			   $session->msg("d", $errors);
+			   redirect('add_compra.php',false);
+			}
   }
 
 ?>
@@ -77,20 +100,25 @@
         <form method="post" action="add_compra.php">
 		 <table class="table table-bordered">
            <thead>
-            <th> Chofer </th>
-            <th> Patente </th>
-			<th> Produto </th>
-			<th> Fecha</th>
+			<tr>
+				<th> Chofer </th>
+				<th> Patente </th>
+				<th> Produto </th>
+				<th> Fecha</th>
+				<th> Acciones</th>
+			</tr>
            </thead>
              <tbody  id="camion_info"> </tbody>
          </table>	
-         <table id="lista_productos" class="table table-bordered">
+         <table class="table table-bordered">
            <thead>
-            <th> Proovedor </th>            
-            <th> Cantidad </th>
-            <th> Calidad</th>    
-			<th> Guia o Factura</th> 
-			<th> Acciones</th>
+			<tr>
+				<th> Proovedor </th>            
+				<th> Cantidad </th>
+				<th> Calidad</th>    
+				<th> Guia o Factura</th> 
+				<th> Acciones</th>
+			</tr>
            </thead>
              <tbody  id="product_info"> </tbody>
          </table>

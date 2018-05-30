@@ -82,6 +82,7 @@ function suggetion() {
                 //console.log(data);
                 $('#product_info').html(data).show();
                 total();
+				productos();
                 $('.datePicker').datepicker('update', new Date());
 
             }).fail(function() {
@@ -97,6 +98,20 @@ function suggetion() {
                 $('input[name=total]').val(total.toFixed(2));
     });
   }
+  function productos(){
+	var tbody = $('#product_info');
+	var fila_contenido = tbody.find('tr').first().html();
+	//Agregar fila nueva.
+	$('#product_info').on('click', '.button_agregar_producto', function(){		
+		var fila_nueva = $('<tr></tr>');
+		fila_nueva.append(fila_contenido);
+		tbody.append(fila_nueva);
+	});
+	//Eliminar fila.
+	$('#product_info').on('click', '.button_eliminar_producto', function(){		
+		$(this).parents('tr').eq(0).remove();
+	});
+}
 
   $(document).ready(function() {
 
@@ -110,6 +125,7 @@ function suggetion() {
     suggetion();
     // Callculate total ammont
     total();
+	productos();
 
     $('.datepicker')
         .datepicker({
